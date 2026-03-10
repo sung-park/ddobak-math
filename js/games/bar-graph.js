@@ -87,9 +87,8 @@ export class BarGraphGame {
     const targetIdx = values.indexOf(targetVal);
     const questionText = isMax ? '가장 많은 것은?' : '가장 적은 것은?';
     const answer = items[targetIdx];
-    const choices = items.sort(() => Math.random() - 0.5).slice(0, 3);
-    if (!choices.includes(answer)) choices[0] = answer;
-    choices.sort(() => Math.random() - 0.5);
+    const wrongs = items.filter(it => it !== answer).sort(() => Math.random() - 0.5).slice(0, 2);
+    const choices = [answer, ...wrongs].sort(() => Math.random() - 0.5);
 
     this.currentQ = { title, items, values, colors, questionText, answer, choices, graphType: 'full' };
     this._renderQuestion();
