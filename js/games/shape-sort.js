@@ -76,8 +76,16 @@ export class ShapeSortGame {
       level: this.level,
       totalQuestions: Math.min(8, this.shapeSet.shapes.length)
     });
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '📐' : '🔷',
+      title: summary.accuracy >= 80 ? '도형 박사!' : '도형 분류 연습 잘했어!',
+      retryHash: `/game/shape-sort/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'shape-sort',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">

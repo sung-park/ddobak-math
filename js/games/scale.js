@@ -27,8 +27,16 @@ export class ScaleGame {
       level: this.level,
       totalQuestions: 8
     });
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '⚖️' : '⚖️',
+      title: summary.accuracy >= 80 ? '비교 달인!' : '비교하기 연습 잘했어!',
+      retryHash: `/game/scale/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'scale',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">

@@ -178,4 +178,107 @@ export class GameEngine {
     const secs = seconds % 60;
     return minutes > 0 ? `${minutes}분 ${secs}초` : `${secs}초`;
   }
+
+  /**
+   * Render a standard result screen with "다음 게임" support
+   * @param {HTMLElement} container
+   * @param {object} summary
+   * @param {object} opts - { icon, title, retryHash }
+   */
+  static async renderResult(container, summary, opts) {
+    const nextGame = await GameEngine.findNextGame(opts.conceptId, opts.gameType, opts.level);
+
+    container.innerHTML = `
+      <div class="game-result">
+        <div class="game-result__icon">${opts.icon || (summary.accuracy >= 80 ? '🎉' : '💪')}</div>
+        <div class="game-result__title">${opts.title || (summary.accuracy >= 80 ? '잘했어!' : '연습 잘했어!')}</div>
+        <div class="game-result__stats">
+          <div class="result-stat"><div class="result-stat__value">${summary.correctCount}/${summary.totalQuestions}</div><div class="result-stat__label">정답</div></div>
+          <div class="result-stat"><div class="result-stat__value">${summary.accuracy}%</div><div class="result-stat__label">정답률</div></div>
+          <div class="result-stat"><div class="result-stat__value">${summary.totalTimeFormatted}</div><div class="result-stat__label">시간</div></div>
+        </div>
+        <div class="game-result__coins">💰 현재 잔액: ${summary.balance}원</div>
+        <div class="game-result__actions">
+          <button class="btn btn-primary btn-lg" id="result-retry">한 번 더!</button>
+          ${nextGame ? `<button class="btn btn-primary btn-lg" id="result-next" style="background: var(--color-success);">다음 게임 →</button>` : ''}
+          <button class="btn btn-outline" id="result-back">학습 목록</button>
+        </div>
+        ${nextGame ? `<div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px;">다음: ${nextGame.label}</div>` : ''}
+      </div>
+    `;
+
+    container.querySelector('#result-retry').addEventListener('click', () => {
+      window.location.hash = opts.retryHash;
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    container.querySelector('#result-back').addEventListener('click', () => {
+      window.location.hash = '/learn';
+    });
+    if (nextGame) {
+      container.querySelector('#result-next').addEventListener('click', () => {
+        window.location.hash = nextGame.hash;
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
+      });
+    }
+  }
+
+  /**
+   * Find the next game to play after the current one
+   */
+  static async findNextGame(conceptId, currentGameType, currentLevel) {
+    try {
+      const resp = await fetch('./data/concepts.json');
+      const data = await resp.json();
+      const concepts = data.concepts;
+      const idx = concepts.findIndex(c => c.id === conceptId);
+      if (idx === -1) return null;
+
+      const concept = concepts[idx];
+      const GAME_NAMES = {
+        'block-calc': '블록 계산기', 'matrix': '구구단', 'number-line': '수 직선',
+        'clock': '시계', 'coins': '동전 모으기', 'counting-farm': '묶어 세기',
+        'scale': '크기 비교', 'pizza': '피자 분수', 'shape-sort': '도형 분류',
+        'division-tree': '나눗셈', 'ruler': '길이 재기', 'bar-graph': '그래프', 'pattern': '규칙 찾기'
+      };
+
+      // 1) Same concept, next level of same game
+      const gameEntry = concept.games.find(g => g.type === currentGameType);
+      if (gameEntry) {
+        const lvIdx = gameEntry.levels.indexOf(currentLevel);
+        if (lvIdx !== -1 && lvIdx < gameEntry.levels.length - 1) {
+          const nextLv = gameEntry.levels[lvIdx + 1];
+          return {
+            hash: `/game/${currentGameType}/${nextLv}?concept=${conceptId}`,
+            label: `${GAME_NAMES[currentGameType] || currentGameType} Lv.${nextLv}`
+          };
+        }
+      }
+
+      // 2) Same concept, next different game
+      const gameIdx = concept.games.findIndex(g => g.type === currentGameType);
+      if (gameIdx !== -1 && gameIdx < concept.games.length - 1) {
+        const nextG = concept.games[gameIdx + 1];
+        return {
+          hash: `/game/${nextG.type}/${nextG.levels[0]}?concept=${conceptId}`,
+          label: `${GAME_NAMES[nextG.type] || nextG.type} Lv.${nextG.levels[0]}`
+        };
+      }
+
+      // 3) Next concept's first game
+      if (idx < concepts.length - 1) {
+        const nextConcept = concepts[idx + 1];
+        if (nextConcept.games.length > 0) {
+          const g = nextConcept.games[0];
+          return {
+            hash: `/game/${g.type}/${g.levels[0]}?concept=${nextConcept.id}`,
+            label: `${nextConcept.name} — ${GAME_NAMES[g.type] || g.type}`
+          };
+        }
+      }
+
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
 }

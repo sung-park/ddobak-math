@@ -81,7 +81,9 @@ export class CurriculumScreen {
         soundManager.play('tap');
         const conceptId = card.dataset.conceptId;
         const concept = conceptsData.concepts.find(c => c.id === conceptId);
-        if (concept && concept.games.length > 0) {
+        if (concept && concept.games.length > 1) {
+          this._showGamePicker(concept);
+        } else if (concept && concept.games.length === 1) {
           const game = concept.games[0];
           const level = game.levels[0] || 1;
           window.location.hash = `/game/${game.type}/${level}?concept=${conceptId}`;
@@ -108,6 +110,45 @@ export class CurriculumScreen {
         </div>
       </button>
     `;
+  }
+
+  _showGamePicker(concept) {
+    const GAME_NAMES = {
+      'block-calc': '🧮 블록 계산기', 'matrix': '✖️ 구구단', 'number-line': '📍 수 직선',
+      'clock': '🕐 시계', 'coins': '💰 동전 모으기', 'counting-farm': '🌾 묶어 세기',
+      'scale': '⚖️ 크기 비교', 'pizza': '🍕 피자 분수', 'shape-sort': '📐 도형 분류',
+      'division-tree': '🌳 나눗셈', 'ruler': '📏 길이 재기', 'bar-graph': '📊 그래프', 'pattern': '🔍 규칙 찾기'
+    };
+
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.innerHTML = `
+      <div class="modal" style="max-width: 340px;">
+        <div class="modal__title">${concept.icon} ${concept.name}</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin: 16px 0;">
+          ${concept.games.map((g, i) => `
+            <button class="btn btn-outline game-pick-btn" data-idx="${i}" style="text-align: left; padding: 12px 16px; font-size: 1rem;">
+              ${GAME_NAMES[g.type] || g.type}
+              <span style="color: var(--text-secondary); font-size: 0.85rem; margin-left: 8px;">Lv.${g.levels.join(', ')}</span>
+            </button>
+          `).join('')}
+        </div>
+        <button class="btn btn-ghost" id="picker-close" style="width: 100%;">닫기</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.querySelector('#picker-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+
+    overlay.querySelectorAll('.game-pick-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const g = concept.games[parseInt(btn.dataset.idx)];
+        const level = g.levels[0] || 1;
+        overlay.remove();
+        window.location.hash = `/game/${g.type}/${level}?concept=${concept.id}`;
+      });
+    });
   }
 
   _showToast(message) {

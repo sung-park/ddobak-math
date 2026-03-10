@@ -28,8 +28,16 @@ export class ClockGame {
       level: this.level,
       totalQuestions: 6
     });
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '🕐' : '⏰',
+      title: summary.accuracy >= 80 ? '시계 박사!' : '시계 읽기 연습 잘했어!',
+      retryHash: `/game/clock/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'clock',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">

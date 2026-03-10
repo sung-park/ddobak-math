@@ -29,8 +29,16 @@ export class CountingFarmGame {
       level: this.level,
       totalQuestions: 6
     });
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '🌾' : '🌱',
+      title: summary.accuracy >= 80 ? '묶어 세기 천재!' : '잘했어! 연습하면 더 잘할 수 있어!',
+      retryHash: `/game/counting-farm/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'counting-farm',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">

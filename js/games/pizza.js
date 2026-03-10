@@ -28,8 +28,16 @@ export class PizzaGame {
       level: this.level,
       totalQuestions: 5
     });
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '🍕' : '🍕',
+      title: summary.accuracy >= 80 ? '분수 마스터!' : '분수 연습 잘했어!',
+      retryHash: `/game/pizza/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'pizza',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">

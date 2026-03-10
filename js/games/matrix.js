@@ -35,8 +35,16 @@ export class MatrixGame {
       totalQuestions: this.blanks.length
     });
 
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '✖️' : '✖️',
+      title: summary.accuracy >= 80 ? '구구단 마스터!' : '구구단 연습 잘했어!',
+      retryHash: `/game/matrix/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'matrix',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">

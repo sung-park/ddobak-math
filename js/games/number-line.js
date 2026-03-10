@@ -40,8 +40,16 @@ export class NumberLineGame {
       totalQuestions: this.config.totalQ
     });
 
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '📍' : '📍',
+      title: summary.accuracy >= 80 ? '수 직선 마스터!' : '수 직선 연습 잘했어!',
+      retryHash: `/game/number-line/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'number-line',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">

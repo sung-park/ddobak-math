@@ -29,8 +29,16 @@ export class BlockCalcGame {
       totalQuestions: this.level <= 2 ? 8 : 6
     });
 
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '🧮' : '🧮',
+      title: summary.accuracy >= 80 ? '계산 천재!' : '계산 연습 잘했어!',
+      retryHash: `/game/block-calc/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'block-calc',
+      level: this.level
+    });
+  }
     // Render game shell
     container.innerHTML = `
       <div class="game-screen">

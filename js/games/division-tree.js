@@ -29,8 +29,16 @@ export class DivisionTreeGame {
       level: this.level,
       totalQuestions: 6
     });
-    this.engine.onComplete((summary) => this._showResult(summary));
-
+  _showResult(summary) {
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '🌳' : '🌱',
+      title: summary.accuracy >= 80 ? '나눗셈 마스터!' : '나눗셈 연습 잘했어!',
+      retryHash: `/game/division-tree/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'division-tree',
+      level: this.level
+    });
+  }
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">
