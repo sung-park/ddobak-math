@@ -27,16 +27,8 @@ export class ScaleGame {
       level: this.level,
       totalQuestions: 8
     });
-  _showResult(summary) {
-    GameEngine.renderResult(this.container, summary, {
-      icon: summary.accuracy >= 80 ? '⚖️' : '⚖️',
-      title: summary.accuracy >= 80 ? '비교 달인!' : '비교하기 연습 잘했어!',
-      retryHash: `/game/scale/${this.level}?concept=${this.conceptId}`,
-      conceptId: this.conceptId,
-      gameType: 'scale',
-      level: this.level
-    });
-  }
+    this.engine.onComplete((summary) => this._showResult(summary));
+
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">
@@ -220,9 +212,14 @@ export class ScaleGame {
   _coinFly(n) { for (let i=0;i<Math.min(n,3);i++){setTimeout(()=>{const el=document.createElement('div');el.className='coin-fly';el.textContent='💰';el.style.left=`${50+(Math.random()*20-10)}%`;el.style.top='50%';document.body.appendChild(el);setTimeout(()=>el.remove(),800);},i*100);} }
 
   _showResult(summary) {
-    this.container.innerHTML = `<div class="game-result"><div class="game-result__icon">${summary.accuracy>=80?'⚖️':'🏋️'}</div><div class="game-result__title">${summary.accuracy>=80?'비교의 달인!':'크기 비교 연습 잘했어!'}</div><div class="game-result__stats"><div class="result-stat"><div class="result-stat__value">${summary.correctCount}/${summary.totalQuestions}</div><div class="result-stat__label">정답</div></div><div class="result-stat"><div class="result-stat__value">${summary.accuracy}%</div><div class="result-stat__label">정답률</div></div><div class="result-stat"><div class="result-stat__value">${summary.totalTimeFormatted}</div><div class="result-stat__label">시간</div></div></div><div class="game-result__coins">💰 현재 잔액: ${summary.balance}원</div><div class="game-result__actions"><button class="btn btn-primary btn-lg" id="result-retry">한 번 더!</button><button class="btn btn-outline" id="result-home">홈으로</button></div></div>`;
-    this.container.querySelector('#result-retry').addEventListener('click', () => { window.location.hash=`/game/scale/${this.level}?concept=${this.conceptId}`; window.dispatchEvent(new HashChangeEvent('hashchange')); });
-    this.container.querySelector('#result-home').addEventListener('click', () => { window.location.hash='/'; });
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '⚖️' : '⚖️',
+      title: summary.accuracy >= 80 ? '비교 달인!' : '비교하기 연습 잘했어!',
+      retryHash: `/game/scale/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'scale',
+      level: this.level
+    });
   }
 
   destroy() { this.container = null; }

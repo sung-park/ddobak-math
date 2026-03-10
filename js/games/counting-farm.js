@@ -29,16 +29,8 @@ export class CountingFarmGame {
       level: this.level,
       totalQuestions: 6
     });
-  _showResult(summary) {
-    GameEngine.renderResult(this.container, summary, {
-      icon: summary.accuracy >= 80 ? '🌾' : '🌱',
-      title: summary.accuracy >= 80 ? '묶어 세기 천재!' : '잘했어! 연습하면 더 잘할 수 있어!',
-      retryHash: `/game/counting-farm/${this.level}?concept=${this.conceptId}`,
-      conceptId: this.conceptId,
-      gameType: 'counting-farm',
-      level: this.level
-    });
-  }
+    this.engine.onComplete((summary) => this._showResult(summary));
+
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">
@@ -198,9 +190,14 @@ export class CountingFarmGame {
   _coinFly(n) { for (let i = 0; i < Math.min(n,3); i++) { setTimeout(() => { const el = document.createElement('div'); el.className='coin-fly'; el.textContent='💰'; el.style.left=`${50+(Math.random()*20-10)}%`; el.style.top='50%'; document.body.appendChild(el); setTimeout(()=>el.remove(),800); }, i*100); } }
 
   _showResult(summary) {
-    this.container.innerHTML = `<div class="game-result"><div class="game-result__icon">${summary.accuracy>=80?'🌾':'🌱'}</div><div class="game-result__title">${summary.accuracy>=80?'묶어 세기 천재!':'잘했어! 연습하면 더 잘할 수 있어!'}</div><div class="game-result__stats"><div class="result-stat"><div class="result-stat__value">${summary.correctCount}/${summary.totalQuestions}</div><div class="result-stat__label">정답</div></div><div class="result-stat"><div class="result-stat__value">${summary.accuracy}%</div><div class="result-stat__label">정답률</div></div><div class="result-stat"><div class="result-stat__value">${summary.totalTimeFormatted}</div><div class="result-stat__label">시간</div></div></div><div class="game-result__coins">💰 현재 잔액: ${summary.balance}원</div><div class="game-result__actions"><button class="btn btn-primary btn-lg" id="result-retry">한 번 더!</button><button class="btn btn-outline" id="result-home">홈으로</button></div></div>`;
-    this.container.querySelector('#result-retry').addEventListener('click', () => { window.location.hash=`/game/counting-farm/${this.level}?concept=${this.conceptId}`; window.dispatchEvent(new HashChangeEvent('hashchange')); });
-    this.container.querySelector('#result-home').addEventListener('click', () => { window.location.hash='/'; });
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '🌾' : '🌱',
+      title: summary.accuracy >= 80 ? '묶어 세기 천재!' : '잘했어! 연습하면 더 잘할 수 있어!',
+      retryHash: `/game/counting-farm/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'counting-farm',
+      level: this.level
+    });
   }
 
   destroy() { this.container = null; }

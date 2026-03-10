@@ -29,16 +29,8 @@ export class BlockCalcGame {
       totalQuestions: this.level <= 2 ? 8 : 6
     });
 
-  _showResult(summary) {
-    GameEngine.renderResult(this.container, summary, {
-      icon: summary.accuracy >= 80 ? '🧮' : '🧮',
-      title: summary.accuracy >= 80 ? '계산 천재!' : '계산 연습 잘했어!',
-      retryHash: `/game/block-calc/${this.level}?concept=${this.conceptId}`,
-      conceptId: this.conceptId,
-      gameType: 'block-calc',
-      level: this.level
-    });
-  }
+    this.engine.onComplete((summary) => this._showResult(summary));
+
     // Render game shell
     container.innerHTML = `
       <div class="game-screen">
@@ -364,42 +356,13 @@ export class BlockCalcGame {
   }
 
   _showResult(summary) {
-    this.container.innerHTML = `
-      <div class="game-result">
-        <div class="game-result__icon">${summary.accuracy >= 80 ? '🌟' : summary.accuracy >= 50 ? '👏' : '💪'}</div>
-        <div class="game-result__title">
-          ${summary.accuracy >= 80 ? '정말 잘했어!' : summary.accuracy >= 50 ? '좋아, 잘하고 있어!' : '괜찮아, 연습하면 돼!'}
-        </div>
-        <div class="game-result__stats">
-          <div class="result-stat">
-            <div class="result-stat__value">${summary.correctCount}/${summary.totalQuestions}</div>
-            <div class="result-stat__label">정답</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-stat__value">${summary.accuracy}%</div>
-            <div class="result-stat__label">정답률</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-stat__value">${summary.totalTimeFormatted}</div>
-            <div class="result-stat__label">걸린 시간</div>
-          </div>
-        </div>
-        <div class="game-result__coins">💰 현재 잔액: ${summary.balance}원</div>
-        <div class="game-result__actions">
-          <button class="btn btn-primary btn-lg" id="result-retry">한 번 더!</button>
-          <button class="btn btn-outline" id="result-home">홈으로</button>
-        </div>
-      </div>
-    `;
-
-    this.container.querySelector('#result-retry').addEventListener('click', () => {
-      window.location.hash = `/game/block-calc/${this.level}?concept=${this.conceptId}`;
-      // Force re-render
-      window.dispatchEvent(new HashChangeEvent('hashchange'));
-    });
-
-    this.container.querySelector('#result-home').addEventListener('click', () => {
-      window.location.hash = '/';
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '🧮' : '🧮',
+      title: summary.accuracy >= 80 ? '계산 천재!' : '계산 연습 잘했어!',
+      retryHash: `/game/block-calc/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'block-calc',
+      level: this.level
     });
   }
 

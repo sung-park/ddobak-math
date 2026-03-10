@@ -40,16 +40,8 @@ export class NumberLineGame {
       totalQuestions: this.config.totalQ
     });
 
-  _showResult(summary) {
-    GameEngine.renderResult(this.container, summary, {
-      icon: summary.accuracy >= 80 ? '📍' : '📍',
-      title: summary.accuracy >= 80 ? '수 직선 마스터!' : '수 직선 연습 잘했어!',
-      retryHash: `/game/number-line/${this.level}?concept=${this.conceptId}`,
-      conceptId: this.conceptId,
-      gameType: 'number-line',
-      level: this.level
-    });
-  }
+    this.engine.onComplete((summary) => this._showResult(summary));
+
     container.innerHTML = `
       <div class="game-screen">
         <div class="game-topbar">
@@ -254,41 +246,13 @@ export class NumberLineGame {
   }
 
   _showResult(summary) {
-    this.container.innerHTML = `
-      <div class="game-result">
-        <div class="game-result__icon">${summary.accuracy >= 80 ? '🌟' : summary.accuracy >= 50 ? '👏' : '💪'}</div>
-        <div class="game-result__title">
-          ${summary.accuracy >= 80 ? '수 놀이터 짱!' : summary.accuracy >= 50 ? '잘하고 있어!' : '다음엔 더 잘할 수 있어!'}
-        </div>
-        <div class="game-result__stats">
-          <div class="result-stat">
-            <div class="result-stat__value">${summary.correctCount}/${summary.totalQuestions}</div>
-            <div class="result-stat__label">정답</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-stat__value">${summary.accuracy}%</div>
-            <div class="result-stat__label">정답률</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-stat__value">${summary.totalTimeFormatted}</div>
-            <div class="result-stat__label">걸린 시간</div>
-          </div>
-        </div>
-        <div class="game-result__coins">💰 현재 잔액: ${summary.balance}원</div>
-        <div class="game-result__actions">
-          <button class="btn btn-primary btn-lg" id="result-retry">한 번 더!</button>
-          <button class="btn btn-outline" id="result-home">홈으로</button>
-        </div>
-      </div>
-    `;
-
-    this.container.querySelector('#result-retry').addEventListener('click', () => {
-      window.location.hash = `/game/number-line/${this.level}?concept=${this.conceptId}`;
-      window.dispatchEvent(new HashChangeEvent('hashchange'));
-    });
-
-    this.container.querySelector('#result-home').addEventListener('click', () => {
-      window.location.hash = '/';
+    GameEngine.renderResult(this.container, summary, {
+      icon: summary.accuracy >= 80 ? '📍' : '📍',
+      title: summary.accuracy >= 80 ? '수 직선 마스터!' : '수 직선 연습 잘했어!',
+      retryHash: `/game/number-line/${this.level}?concept=${this.conceptId}`,
+      conceptId: this.conceptId,
+      gameType: 'number-line',
+      level: this.level
     });
   }
 
