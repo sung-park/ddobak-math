@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ddobak-math-v3';
+const CACHE_NAME = 'ddobak-math-v4';
 const ASSETS = [
   './',
   './index.html',
@@ -58,23 +58,22 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Fetch — cache-first for static assets
+// Fetch — network-first, fallback to cache (ensures updates are seen immediately)
 self.addEventListener('fetch', (e) => {
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      return cached || fetch(e.request).then(response => {
-        // Cache new requests dynamically
-        if (response.status === 200 && e.request.method === 'GET') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
-        }
-        return response;
-      });
-    }).catch(() => {
-      // Offline fallback
-      if (e.request.mode === 'navigate') {
-        return caches.match('./index.html');
+    fetch(e.request).then(response => {
+      if (response.status === 200 && e.request.method === 'GET') {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
       }
+      return response;
+    }).catch(() => {
+      return caches.match(e.request).then(cached => {
+        if (cached) return cached;
+        if (e.request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
+      });
     })
   );
 });
