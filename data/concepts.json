@@ -1,0 +1,249 @@
+{
+  "concepts": [
+    {
+      "id": "num-1-1-1",
+      "grade": 1, "semester": 1, "unit": 1,
+      "name": "9까지의 수",
+      "icon": "🔢",
+      "games": [{ "type": "number-line", "levels": [1] }]
+    },
+    {
+      "id": "shape-1-1-2",
+      "grade": 1, "semester": 1, "unit": 2,
+      "name": "여러 가지 모양",
+      "icon": "🔷",
+      "games": [{ "type": "shape-sort", "levels": [1] }]
+    },
+    {
+      "id": "add-sub-1-1-3",
+      "grade": 1, "semester": 1, "unit": 3,
+      "name": "덧셈과 뺄셈",
+      "icon": "➕",
+      "games": [{ "type": "block-calc", "levels": [1] }]
+    },
+    {
+      "id": "compare-1-1-4",
+      "grade": 1, "semester": 1, "unit": 4,
+      "name": "비교하기",
+      "icon": "⚖️",
+      "games": [{ "type": "scale", "levels": [1] }]
+    },
+    {
+      "id": "num-1-1-5",
+      "grade": 1, "semester": 1, "unit": 5,
+      "name": "50까지의 수",
+      "icon": "🔢",
+      "games": [{ "type": "number-line", "levels": [2] }, { "type": "counting-farm", "levels": [1] }]
+    },
+    {
+      "id": "num-1-2-1",
+      "grade": 1, "semester": 2, "unit": 1,
+      "name": "100까지의 수",
+      "icon": "💯",
+      "games": [{ "type": "number-line", "levels": [3] }, { "type": "counting-farm", "levels": [1, 2] }, { "type": "coins", "levels": [1] }]
+    },
+    {
+      "id": "add-sub-1-2-2",
+      "grade": 1, "semester": 2, "unit": 2,
+      "name": "덧셈과 뺄셈(1)",
+      "icon": "➕",
+      "games": [{ "type": "block-calc", "levels": [2] }]
+    },
+    {
+      "id": "shape-1-2-3",
+      "grade": 1, "semester": 2, "unit": 3,
+      "name": "여러 가지 모양",
+      "icon": "🔷",
+      "games": [{ "type": "shape-sort", "levels": [1, 2] }]
+    },
+    {
+      "id": "add-sub-1-2-4",
+      "grade": 1, "semester": 2, "unit": 4,
+      "name": "덧셈과 뺄셈(2)",
+      "icon": "➕",
+      "games": [{ "type": "block-calc", "levels": [2] }]
+    },
+    {
+      "id": "clock-1-2-5",
+      "grade": 1, "semester": 2, "unit": 5,
+      "name": "시계 보기와 규칙 찾기",
+      "icon": "🕐",
+      "games": [{ "type": "clock", "levels": [1] }, { "type": "pattern", "levels": [1] }]
+    },
+    {
+      "id": "add-sub-1-2-6",
+      "grade": 1, "semester": 2, "unit": 6,
+      "name": "덧셈과 뺄셈(3)",
+      "icon": "➕",
+      "games": [{ "type": "block-calc", "levels": [2] }]
+    },
+    {
+      "id": "num-2-1-1",
+      "grade": 2, "semester": 1, "unit": 1,
+      "name": "세 자리 수",
+      "icon": "🔢",
+      "games": [{ "type": "number-line", "levels": [4] }, { "type": "scale", "levels": [3] }, { "type": "coins", "levels": [2] }]
+    },
+    {
+      "id": "shape-2-1-2",
+      "grade": 2, "semester": 1, "unit": 2,
+      "name": "여러 가지 도형",
+      "icon": "📐",
+      "games": [{ "type": "shape-sort", "levels": [2, 3] }]
+    },
+    {
+      "id": "add-sub-2-1-3",
+      "grade": 2, "semester": 1, "unit": 3,
+      "name": "덧셈과 뺄셈",
+      "icon": "➕",
+      "games": [{ "type": "block-calc", "levels": [3] }]
+    },
+    {
+      "id": "length-2-1-4",
+      "grade": 2, "semester": 1, "unit": 4,
+      "name": "길이 재기",
+      "icon": "📏",
+      "games": [{ "type": "ruler", "levels": [1, 2] }, { "type": "scale", "levels": [2] }]
+    },
+    {
+      "id": "classify-2-1-5",
+      "grade": 2, "semester": 1, "unit": 5,
+      "name": "분류하기",
+      "icon": "📊",
+      "games": [{ "type": "shape-sort", "levels": [2, 3] }, { "type": "counting-farm", "levels": [2] }, { "type": "bar-graph", "levels": [1] }]
+    },
+    {
+      "id": "mult-2-1-6",
+      "grade": 2, "semester": 1, "unit": 6,
+      "name": "곱셈",
+      "icon": "✖️",
+      "games": [{ "type": "matrix", "levels": [1] }, { "type": "counting-farm", "levels": [2, 3] }]
+    },
+    {
+      "id": "num-2-2-1",
+      "grade": 2, "semester": 2, "unit": 1,
+      "name": "네 자리 수",
+      "icon": "🔢",
+      "games": [{ "type": "number-line", "levels": [4] }, { "type": "scale", "levels": [3] }, { "type": "coins", "levels": [3, 4] }]
+    },
+    {
+      "id": "mult-2-2-2",
+      "grade": 2, "semester": 2, "unit": 2,
+      "name": "곱셈구구",
+      "icon": "✖️",
+      "games": [{ "type": "matrix", "levels": [1, 2, 3, 4] }, { "type": "counting-farm", "levels": [3, 4] }]
+    },
+    {
+      "id": "length-2-2-3",
+      "grade": 2, "semester": 2, "unit": 3,
+      "name": "길이 재기",
+      "icon": "📏",
+      "games": [{ "type": "ruler", "levels": [2, 3] }, { "type": "scale", "levels": [2, 3] }]
+    },
+    {
+      "id": "time-2-2-4",
+      "grade": 2, "semester": 2, "unit": 4,
+      "name": "시각과 시간",
+      "icon": "🕐",
+      "games": [{ "type": "clock", "levels": [1, 2, 3] }]
+    },
+    {
+      "id": "graph-2-2-5",
+      "grade": 2, "semester": 2, "unit": 5,
+      "name": "표와 그래프",
+      "icon": "📊",
+      "games": [{ "type": "bar-graph", "levels": [1, 2] }, { "type": "counting-farm", "levels": [2, 3] }]
+    },
+    {
+      "id": "pattern-2-2-6",
+      "grade": 2, "semester": 2, "unit": 6,
+      "name": "규칙 찾기",
+      "icon": "🔍",
+      "games": [{ "type": "pattern", "levels": [1, 2] }, { "type": "counting-farm", "levels": [3, 4] }]
+    },
+    {
+      "id": "add-sub-3-1-1",
+      "grade": 3, "semester": 1, "unit": 1,
+      "name": "덧셈과 뺄셈",
+      "icon": "➕",
+      "games": [{ "type": "block-calc", "levels": [4] }]
+    },
+    {
+      "id": "plane-3-1-2",
+      "grade": 3, "semester": 1, "unit": 2,
+      "name": "평면도형",
+      "icon": "📐",
+      "games": [{ "type": "shape-sort", "levels": [3, 4] }]
+    },
+    {
+      "id": "div-3-1-3",
+      "grade": 3, "semester": 1, "unit": 3,
+      "name": "나눗셈",
+      "icon": "➗",
+      "games": [{ "type": "division-tree", "levels": [1, 2] }]
+    },
+    {
+      "id": "mult-3-1-4",
+      "grade": 3, "semester": 1, "unit": 4,
+      "name": "곱셈",
+      "icon": "✖️",
+      "games": [{ "type": "matrix", "levels": [3, 4] }, { "type": "counting-farm", "levels": [4] }]
+    },
+    {
+      "id": "time-3-1-5",
+      "grade": 3, "semester": 1, "unit": 5,
+      "name": "길이와 시간",
+      "icon": "⏱️",
+      "games": [{ "type": "clock", "levels": [3, 4] }, { "type": "ruler", "levels": [3, 4] }]
+    },
+    {
+      "id": "frac-3-1-6",
+      "grade": 3, "semester": 1, "unit": 6,
+      "name": "분수와 소수",
+      "icon": "🍕",
+      "games": [{ "type": "pizza", "levels": [1, 2] }]
+    },
+    {
+      "id": "mult-3-2-1",
+      "grade": 3, "semester": 2, "unit": 1,
+      "name": "곱셈",
+      "icon": "✖️",
+      "games": [{ "type": "matrix", "levels": [4] }]
+    },
+    {
+      "id": "div-3-2-2",
+      "grade": 3, "semester": 2, "unit": 2,
+      "name": "나눗셈",
+      "icon": "➗",
+      "games": [{ "type": "division-tree", "levels": [2, 3, 4] }]
+    },
+    {
+      "id": "circle-3-2-3",
+      "grade": 3, "semester": 2, "unit": 3,
+      "name": "원",
+      "icon": "⭕",
+      "games": [{ "type": "shape-sort", "levels": [2, 3] }, { "type": "pizza", "levels": [1] }]
+    },
+    {
+      "id": "frac-3-2-4",
+      "grade": 3, "semester": 2, "unit": 4,
+      "name": "분수",
+      "icon": "🍕",
+      "games": [{ "type": "pizza", "levels": [2, 3, 4] }]
+    },
+    {
+      "id": "measure-3-2-5",
+      "grade": 3, "semester": 2, "unit": 5,
+      "name": "들이와 무게",
+      "icon": "⚖️",
+      "games": [{ "type": "ruler", "levels": [4] }, { "type": "scale", "levels": [2, 3] }]
+    },
+    {
+      "id": "data-3-2-6",
+      "grade": 3, "semester": 2, "unit": 6,
+      "name": "자료의 정리",
+      "icon": "📊",
+      "games": [{ "type": "bar-graph", "levels": [2, 3, 4] }, { "type": "counting-farm", "levels": [3, 4] }]
+    }
+  ]
+}

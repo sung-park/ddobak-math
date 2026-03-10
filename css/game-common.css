@@ -1,0 +1,714 @@
+/* === Game Screen Layout === */
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--bg-game);
+}
+
+.game-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  padding-top: calc(var(--safe-top) + var(--space-sm));
+  background: var(--bg-card);
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.game-topbar__back {
+  font-size: 1.5rem;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-topbar__question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.game-topbar__coins {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 4px 12px;
+  background: var(--color-warning);
+  border-radius: var(--radius-full);
+}
+
+/* === Progress indicator === */
+.game-progress {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-card);
+}
+
+.game-progress__bar {
+  width: 100%;
+  height: 8px;
+  background: #eee;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.game-progress__fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.game-progress__text {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* === Game Area (main content) === */
+.game-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  gap: var(--space-lg);
+}
+
+/* === Question Display === */
+.question-display {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  padding: var(--space-md);
+}
+
+/* === Choices Area === */
+.choices {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: var(--space-md);
+  width: 100%;
+}
+
+.choices--grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  max-width: 320px;
+}
+
+/* === Block Calculator specific === */
+.block-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 360px;
+}
+
+.block-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-lg);
+  justify-content: center;
+  width: 100%;
+}
+
+.block-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.block-column__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.block-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+  min-height: 40px;
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  min-width: 80px;
+}
+
+.block-container--ones {
+  background: rgba(255, 217, 61, 0.15);
+  border: 2px dashed var(--color-ones);
+}
+
+.block-container--tens {
+  background: rgba(107, 203, 119, 0.15);
+  border: 2px dashed var(--color-tens);
+}
+
+.block-container--hundreds {
+  background: rgba(77, 150, 255, 0.15);
+  border: 2px dashed var(--color-hundreds);
+}
+
+.block {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  transition: all var(--transition-fast);
+}
+
+.block--one {
+  background: var(--color-ones);
+  box-shadow: 0 2px 0 #e6c235;
+}
+
+.block--ten {
+  background: var(--color-tens);
+  width: 28px;
+  height: 28px;
+  box-shadow: 0 2px 0 #5ab369;
+}
+
+.block--hundred {
+  background: var(--color-hundreds);
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 2px 0 #3d78cc;
+}
+
+/* Block animations */
+.block.merging {
+  animation: blockMerge 0.5s ease forwards;
+}
+
+@keyframes blockMerge {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.block.appearing {
+  animation: blockAppear 0.4s ease;
+}
+
+@keyframes blockAppear {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.block.carry-up {
+  animation: carryUp 0.6s ease;
+}
+
+@keyframes carryUp {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-40px) scale(1.2); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* === Operator display === */
+.operator {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  margin: var(--space-sm) 0;
+}
+
+.divider-line {
+  width: 100%;
+  max-width: 300px;
+  height: 3px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  margin: var(--space-sm) 0;
+}
+
+/* === Hint area === */
+.hint-area {
+  background: rgba(255, 230, 109, 0.2);
+  border: 2px solid var(--color-warning);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  animation: hintFadeIn 0.5s ease;
+  max-width: 340px;
+  width: 100%;
+}
+
+@keyframes hintFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Encouragement message === */
+.encouragement {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-align: center;
+  animation: encouragePop 0.5s ease;
+}
+
+@keyframes encouragePop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* === Game Result Screen === */
+.game-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--space-xl);
+  text-align: center;
+  background: var(--bg-main);
+}
+
+.game-result__icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-md);
+}
+
+.game-result__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+}
+
+.game-result__stats {
+  display: flex;
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.result-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-stat__value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+
+.result-stat__label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.game-result__coins {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.game-result__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 280px;
+}
+
+/* === Number Line (수 놀이터) === */
+.number-line-area {
+  width: 100%;
+  overflow-x: auto;
+  padding: var(--space-lg) 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.number-line {
+  display: flex;
+  align-items: center;
+  min-width: max-content;
+  padding: 0 var(--space-xl);
+  height: 80px;
+  position: relative;
+}
+
+.number-line__track {
+  height: 4px;
+  background: var(--text-light);
+  border-radius: 2px;
+  position: relative;
+  width: 100%;
+}
+
+.number-line__tick {
+  position: absolute;
+  top: -8px;
+  width: 2px;
+  height: 20px;
+  background: var(--text-light);
+  transform: translateX(-50%);
+}
+
+.number-line__tick--major {
+  height: 28px;
+  top: -12px;
+  background: var(--text-secondary);
+  width: 3px;
+}
+
+.number-line__label {
+  position: absolute;
+  top: 20px;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.number-line__target {
+  position: absolute;
+  top: -24px;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-secondary);
+  animation: targetBounce 1s ease infinite;
+}
+
+@keyframes targetBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-6px); }
+}
+
+/* === Multiplication Matrix (구구단 매트릭스) === */
+.matrix-grid {
+  display: grid;
+  gap: 3px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.matrix-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: all var(--transition-fast);
+}
+
+.matrix-cell--header {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  font-weight: 800;
+}
+
+.matrix-cell--filled {
+  background: #e8f8f5;
+  color: var(--text-primary);
+}
+
+.matrix-cell--empty {
+  background: var(--bg-card);
+  border: 2px dashed #ddd;
+  cursor: pointer;
+  color: var(--text-light);
+  font-size: 1.2rem;
+}
+
+.matrix-cell--empty:active {
+  transform: scale(0.9);
+  border-color: var(--color-primary);
+}
+
+.matrix-cell--target {
+  background: var(--color-warning);
+  border: 3px solid #e6c235;
+  animation: targetPulse 1.5s ease infinite;
+}
+
+@keyframes targetPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 230, 109, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(255, 230, 109, 0); }
+}
+
+.matrix-cell--symmetric {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: -2px;
+}
+
+.matrix-cell--completed-row {
+  animation: rowComplete 0.5s ease;
+}
+
+@keyframes rowComplete {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); background: var(--color-success); }
+  100% { transform: scale(1); }
+}
+
+/* === Clock Game (시계 맞추기) === */
+.clock-container {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+
+.clock-face {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 4px solid var(--text-primary);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.clock-number {
+  position: absolute;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transform: translate(-50%, -50%);
+}
+
+.clock-hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 4px;
+}
+
+.clock-hand--hour {
+  width: 6px;
+  height: 70px;
+  background: var(--text-primary);
+  margin-left: -3px;
+}
+
+.clock-hand--minute {
+  width: 4px;
+  height: 95px;
+  background: var(--color-primary-dark);
+  margin-left: -2px;
+}
+
+.clock-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+/* === Curriculum (학습하기) === */
+.curriculum {
+  padding: var(--space-md);
+  padding-bottom: calc(var(--safe-bottom) + var(--space-lg));
+}
+
+.curriculum__grade-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  margin-bottom: var(--space-md);
+}
+
+.grade-tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  background: var(--bg-card);
+  border: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.grade-tab.active {
+  border-color: var(--color-primary);
+  background: rgba(78, 205, 196, 0.1);
+  color: var(--color-primary-dark);
+}
+
+.semester-section {
+  margin-bottom: var(--space-lg);
+}
+
+.semester-section__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+  padding-left: var(--space-xs);
+}
+
+.unit-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+}
+
+.unit-card:active {
+  transform: scale(0.98);
+}
+
+.unit-card__icon {
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-game);
+  border-radius: var(--radius-md);
+}
+
+.unit-card__info {
+  flex: 1;
+}
+
+.unit-card__name {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.unit-card__mastery {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.unit-card__mastery-bar {
+  flex: 1;
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.unit-card__mastery-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--color-primary);
+}
+
+.unit-card__mastery-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* === Shop (과자 가게) === */
+.shop {
+  padding: var(--space-md);
+  padding-bottom: calc(var(--safe-bottom) + var(--space-lg));
+}
+
+.shop__balance {
+  text-align: center;
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.shop__balance-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.shop__balance-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.shop__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.shop-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: transform var(--transition-fast);
+}
+
+.shop-item:active {
+  transform: scale(0.96);
+}
+
+.shop-item__emoji {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.shop-item__name {
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.shop-item__price {
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.shop-item__btn {
+  padding: 8px 20px;
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.shop-item__btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

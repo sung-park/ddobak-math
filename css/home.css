@@ -1,0 +1,130 @@
+/* === Home Screen === */
+.home {
+  padding-bottom: calc(var(--safe-bottom) + var(--space-lg));
+}
+
+.home__header {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--text-inverse);
+  padding: var(--space-xl) var(--space-lg);
+  padding-top: calc(var(--safe-top) + var(--space-xl));
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.home__greeting {
+  font-size: 1.125rem;
+  opacity: 0.9;
+  margin-bottom: var(--space-xs);
+}
+
+.home__name {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: var(--space-md);
+}
+
+.home__coins-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(255,255,255,0.2);
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* === Menu Grid === */
+.home__menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 120px;
+  border: 2px solid transparent;
+}
+
+.menu-card:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-md);
+}
+
+.menu-card__icon {
+  font-size: 2.2rem;
+}
+
+.menu-card__label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.menu-card--daily {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+  border-color: var(--color-warning);
+  min-height: 80px;
+}
+
+.menu-card--daily .menu-card__icon {
+  font-size: 2rem;
+}
+
+.menu-card--daily .menu-card__label {
+  font-size: 1.1rem;
+}
+
+.menu-card--daily .menu-card__sub {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* === Today's Stats === */
+.home__stats {
+  display: flex;
+  gap: var(--space-sm);
+  padding: 0 var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.stat-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-sm) var(--space-xs);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-chip__value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+
+.stat-chip__label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
