@@ -96,10 +96,19 @@ async function main() {
 
   router.start();
 
-  // Register service worker
+  // Register service worker with forced update
   if ('serviceWorker' in navigator) {
     try {
-      await navigator.serviceWorker.register('./sw.js');
+      const reg = await navigator.serviceWorker.register('./sw.js');
+      reg.update(); // Force check for new SW
+      reg.addEventListener('updatefound', () => {
+        const newSW = reg.installing;
+        newSW.addEventListener('statechange', () => {
+          if (newSW.state === 'activated') {
+            window.location.reload(); // Reload to use new SW
+          }
+        });
+      });
     } catch (e) {
       // SW registration failed — app still works
     }
